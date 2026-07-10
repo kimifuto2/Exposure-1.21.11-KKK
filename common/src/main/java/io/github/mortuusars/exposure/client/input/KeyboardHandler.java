@@ -18,7 +18,7 @@ public class KeyboardHandler {
         KeyMapping keyMapping = new KeyMapping("key.exposure.camera_controls",
                 InputConstants.Type.KEYSYM,
                 InputConstants.UNKNOWN.getValue(),
-                null);
+                KeyMapping.Category.MISC);
 
         openCameraControlsKey = registerFunction.apply(keyMapping);
     }
