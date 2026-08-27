@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import io.github.mortuusars.exposure.ExposureClient;
+import io.github.mortuusars.exposure.ThirdPersonCompat;
 import io.github.mortuusars.exposure.client.capture.task.BackgroundScreenshotCaptureTask;
 import io.github.mortuusars.exposure.client.render.FovModifier;
 import io.github.mortuusars.exposure.client.util.Shader;
@@ -20,6 +21,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = GameRenderer.class, priority = 500)
 public abstract class GameRendererMixin {
+    @Inject(method = "render", at = @At("HEAD"))
+    void onRenderHead(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo ci) {
+        ThirdPersonCompat.onRenderStart();
+    }
+
     @Inject(method = "render", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/Minecraft;getMainRenderTarget()Lcom/mojang/blaze3d/pipeline/RenderTarget;"))
     void onRender(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo ci) {

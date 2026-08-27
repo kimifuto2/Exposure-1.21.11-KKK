@@ -32,6 +32,7 @@ import io.github.mortuusars.exposure.world.level.storage.ExposureIdentifier;
 import io.github.mortuusars.exposure.util.*;
 import io.github.mortuusars.exposure.world.sound.Sound;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -833,6 +834,9 @@ public class CameraItem extends Item {
             data.put(Frame.FLASH, true);
         }
         if (isInSelfieMode(camera)) {
+            data.put(Frame.SELFIE, true);
+        } else if (PlatformHelper.isModLoaded("leawind_third_person")
+                && Minecrft.get().options.getCameraType() != CameraType.FIRST_PERSON) {
             data.put(Frame.SELFIE, true);
         }
         if (holder instanceof CameraStandEntity) {

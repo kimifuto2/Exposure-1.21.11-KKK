@@ -10,7 +10,8 @@ public enum CameraStatus implements StringRepresentable {
     NONE(0, "none"),
     ACTIVE(1, "active"),
     SELFIE(2, "selfie"),
-    SELFIE_VIEWFINDER(3, "selfie_viewfinder");
+    SELFIE_VIEWFINDER(3, "selfie_viewfinder"),
+    HIDDEN(4, "hidden");
 
     public static final Codec<CameraStatus> CODEC = StringRepresentable.fromEnum(CameraStatus::values);
     public static final IntFunction<CameraStatus> BY_ID = ByIdMap.continuous(CameraStatus::getId, values(), ByIdMap.OutOfBoundsStrategy.ZERO);

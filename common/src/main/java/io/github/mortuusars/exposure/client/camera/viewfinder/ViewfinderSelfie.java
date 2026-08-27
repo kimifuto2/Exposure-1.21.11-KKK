@@ -62,9 +62,12 @@ public class ViewfinderSelfie {
         }
 
         CameraType current = Minecrft.options().getCameraType();
-        CameraType newCameraType = current == CameraType.FIRST_PERSON
-                ? CameraType.THIRD_PERSON_FRONT
-                : CameraType.FIRST_PERSON;
+        CameraType newCameraType;
+        if (current == CameraType.FIRST_PERSON || current == CameraType.THIRD_PERSON_BACK) {
+            newCameraType = CameraType.THIRD_PERSON_FRONT;
+        } else {
+            newCameraType = CameraType.FIRST_PERSON;
+        }
 
         Minecrft.options().setCameraType(newCameraType);
     }

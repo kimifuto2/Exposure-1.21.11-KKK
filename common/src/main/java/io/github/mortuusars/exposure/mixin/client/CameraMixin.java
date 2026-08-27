@@ -25,7 +25,8 @@ public abstract class CameraMixin {
 
     @Inject(method = "getMaxZoom", at = @At(value = "RETURN"), cancellable = true)
     private void getMaxZoom(float maxZoom, CallbackInfoReturnable<Float> cir) {
-        if (CameraClient.viewfinder() != null && CameraClient.viewfinder().isLookingThrough()) {
+        if (CameraClient.viewfinder() != null && CameraClient.viewfinder().isLookingThrough()
+                && CameraClient.viewfinder().camera().inSelfieMode()) {
             cir.setReturnValue(Math.min(CameraClient.viewfinder().selfie().getMaxCameraDistance(), cir.getReturnValue()));
         }
     }

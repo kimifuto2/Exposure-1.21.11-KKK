@@ -204,6 +204,13 @@
             "type": "minecraft:model",
             "model": "exposure:item/selfie_stick"
           }
+        },
+        {
+          "when": "hidden",
+          "model": {
+            "type": "minecraft:model",
+            "model": "exposure:item/camera_hidden"
+          }
         }
       ]
     }
