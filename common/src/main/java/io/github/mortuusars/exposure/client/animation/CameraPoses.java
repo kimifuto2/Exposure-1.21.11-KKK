@@ -117,11 +117,10 @@ public class CameraPoses<T extends HumanoidRenderState> {
         target.xRot = source.xRot;
         target.yRot = source.yRot;
         target.zRot = source.zRot;
-        target.x = source.x;
-        target.y = source.y;
-        target.z = source.z;
-        // The 1.21.5+ ModelPart also has scale; copy it too so the hat/hair part is
-        // transformed identically to the head it is copied from (copyFrom was removed).
+        // Do NOT copy x/y/z position: in the 1.21.5+ ModelPart the pivot is folded into the
+        // position, and head/hat have separate base positions. Copying the head's position
+        // onto the hat moves it off the head; keep the hat at its own base and only sync the
+        // rotation (plus scale) so the hair follows the head's orientation.
         target.xScale = source.xScale;
         target.yScale = source.yScale;
         target.zScale = source.zScale;
