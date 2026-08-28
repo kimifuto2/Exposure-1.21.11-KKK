@@ -52,6 +52,10 @@ public class CameraPoses<T extends HumanoidRenderState> {
         } else {
             cameraArm.zRot = (model.head.xRot * 0.22f) * (arm == HumanoidArm.RIGHT ? -1 : 1);
         }
+
+        // Keep the hair/hat layer aligned with the head when looking through the selfie viewfinder,
+        // otherwise turning the camera (head yaw) leaves the hair behind and it misaligns.
+        copyModelPart(model.hat, model.head);
     }
 
     public void applyDisassembled(HumanoidModel<?> model, T renderState, HumanoidArm arm) {
