@@ -116,6 +116,11 @@ public class CameraPoses<T extends HumanoidRenderState> {
         target.x = source.x;
         target.y = source.y;
         target.z = source.z;
+        // The 1.21.5+ ModelPart also has scale; copy it too so the hat/hair part is
+        // transformed identically to the head it is copied from (copyFrom was removed).
+        target.xScale = source.xScale;
+        target.yScale = source.yScale;
+        target.zScale = source.zScale;
     }
 
     public float getCameraActionProgress(T renderState) {
