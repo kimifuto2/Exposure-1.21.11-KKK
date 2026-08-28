@@ -18,9 +18,15 @@ public class TextureLocationArgument extends IdentifierArgument {
     }
 
     private static Stream<Identifier> getTextureLocations() {
-        return Minecraft.getInstance().getResourceManager()
-                .listResources("textures", rl -> true)
-                .keySet()
-                .stream();
+        // getResourceManager() is client-only. On a dedicated server the net.minecraft.client.Minecraft
+        // class is absent, so fall back to no suggestions instead of throwing NoClassDefFoundError.
+        try {
+            return Minecraft.getInstance().getResourceManager()
+                    .listResources("textures", rl -> true)
+                    .keySet()
+                    .stream();
+        } catch (Throwable ignored) {
+            return Stream.empty();
+        }
     }
 }

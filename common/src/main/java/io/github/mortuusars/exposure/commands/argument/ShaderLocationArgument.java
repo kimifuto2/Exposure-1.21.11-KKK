@@ -18,11 +18,17 @@ public class ShaderLocationArgument extends IdentifierArgument {
     }
 
     private static Stream<Identifier> getShaderLocations() {
-        return Minecraft.getInstance().getResourceManager()
-                .listResources("post_effect", ShaderLocationArgument::filterLocations)
-                .keySet()
-                .stream()
-                .map(Identifier -> Identifier.withPath(path -> path.substring("post_chain//".length(), path.indexOf(".json"))));
+        // getResourceManager() is client-only. On a dedicated server the net.minecraft.client.Minecraft
+        // class is absent, so fall back to no suggestions instead of throwing NoClassDefFoundError.
+        try {
+            return Minecraft.getInstance().getResourceManager()
+                    .listResources("post_effect", ShaderLocationArgument::filterLocations)
+                    .keySet()
+                    .stream()
+                    .map(Identifier -> Identifier.withPath(path -> path.substring("post_chain//".length(), path.indexOf(".json"))));
+        } catch (Throwable ignored) {
+            return Stream.empty();
+        }
     }
 
     private static boolean filterLocations(Identifier Identifier) {
